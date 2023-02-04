@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class DashboardBarangController extends Controller
 {
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -18,6 +19,7 @@ class DashboardBarangController extends Controller
 	 */
 	public function index()
 	{
+		$this->authorize('admin');
 		return view('dashboard.dataBarang', [
 			'title' => 'Data Barang',
 			'barang' => DataBarang::filter(request(['search']))->paginate(15)->onEachSide(1)->withQueryString(),
@@ -163,8 +165,8 @@ class DashboardBarangController extends Controller
 		$barang = $dataBarang->find($id);
 
 		// hapus gambar yg lama
-		if ($dataBarang->image) {
-			Storage::delete($dataBarang->image);
+		if ($barang->image) {
+			Storage::delete($barang->image);
 		}
 
 		if (DataBarang::destroy($id)) {

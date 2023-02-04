@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 body {
-    @apply font-poppins bg-white;
+    @apply font-poppins bg-white selection:bg-violet-500 selection:text-white;
 }
 
 .sideMenu a {
@@ -93,7 +93,7 @@ body {
 }
 
 .table tbody td {
-    @apply px-6 py-4;
+    @apply px-6 py-4 min-w-[7rem];
 }
 
 .editBtn, .editBtn2 {

@@ -33,7 +33,14 @@ class LoginController extends Controller
 
 		if (Auth::attempt($credentials, $remember)) {
 			$request->session()->regenerate();
-			return redirect('/dashboard');
+
+			if (Auth::user()->role === 'pembeli') {
+
+				return redirect('/');
+			} else if (Auth::user()->role === 'admin') {
+
+				return redirect('/dashboard');
+			}
 		} else {
 
 			return back()->with('loginError', 'Username/password salah!');

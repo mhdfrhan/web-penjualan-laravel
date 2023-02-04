@@ -18,24 +18,10 @@
             </div>
         @endif
 
-        @php
-            function hideEmailAddress($email)
-            {
-                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    [$first, $last] = explode('@', $email);
-                    $first = str_replace(substr($first, '3'), str_repeat('*', strlen($first) - 2), $first);
-                    $last = explode('.', $last);
-                    $last_domain = str_replace(substr($last['0'], '1'), str_repeat('*', strlen($last['0']) - 1), $last['0']);
-                    $hideEmailAddress = $first . '@' . $last_domain . '.' . $last['1'];
-                    return $hideEmailAddress;
-                }
-            }
-        @endphp
-
         <div class="text-center">
             <h1 class="text-xl md:text-2xl font-medium">Verifikasi akun Anda</h1>
             <p class="text-[13px] text-gray-400 mt-2">Kami telah mengirimkan tautan aktivasi akun email <span
-                    id="email">{{ hideEmailAddress(Auth::user()->email) }}</span></p>
+                    id="email">{{ Auth::user()->email }}</span></p>
         </div>
         <div class="flex justify-center my-6">
             <div

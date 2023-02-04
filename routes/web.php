@@ -20,23 +20,23 @@ use App\Http\Controllers\DashboardBarangController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified']);
-
 
 Auth::routes(['verify' => true]);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth']);
-Route::get('/dashboard/dataBarang', [DashboardBarangController::class, 'index'])->middleware(['auth']);
-Route::resource('/dashboard/dataBarang/produk', DashboardBarangController::class)->middleware(['auth']);
-Route::get('/dashboard/kategori', [CategoryController::class, 'index'])->middleware(['auth']);
-Route::resource('/dashboard/kategori/produk', CategoryController::class)->middleware(['auth', 'verified']);
+Route::middleware(['auth', 'verified'])->group(function () {
+	Route::get('/', [HomeController::class, 'index']);
+
+	Route::get('/dashboard', [DashboardController::class, 'index']);
+	Route::get('/dashboard/dataBarang', [DashboardBarangController::class, 'index']);
+	Route::resource('/dashboard/dataBarang/produk', DashboardBarangController::class);
+	Route::get('/dashboard/kategori', [CategoryController::class, 'index']);
+	Route::resource('/dashboard/kategori/produk', CategoryController::class);
+});
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 
-Route::post('/logout', [LoginController::class, 'logout']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('page.logout');
 
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
-
-
