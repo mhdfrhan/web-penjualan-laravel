@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('data_barangs', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('jenis_brg');
+            $table->string('kategori');
             $table->string('merk_brg');
+            $table->string('slug');
 						$table->string('image')->nullable();
             $table->bigInteger('harga_brg');
             $table->bigInteger('stok_brg');

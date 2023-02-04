@@ -20,9 +20,21 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => 'Muhammad farhan',
+            'username' => 'farhan',
+            'email' => 'farhanmutia12@gmail.com',
+						'password' => bcrypt('farhan')
+        ]);
+
+
+				DataBarang::factory(100)->create([
+					'kategori' => Str::random(5),
+					'merk_brg' => Str::random(5),
+					'slug' => Str::random(5),
+					'harga_brg' => 100000000,
+					'stok_brg' => 100,
+				]);
+
     }
 }

@@ -53,18 +53,19 @@ $(document).ready(function () {
 			e.preventDefault();
 
 			let nama_brg = $(this).data('name');
+			let id = $(this).val()
 			let link = $('#formHapus').attr('action');
 
 
 			$('.namaBrg').html(nama_brg);
 
-			if ($('#modalHapusBtn').click(function () {
-							$('#formHapusModal').attr('action', link)
-					}));
+			
+			$('#formHapusModal').attr('action', link + id)
+					
 	});
 
 	var rupiah = document.getElementById('harga_brg');
-			rupiah.addEventListener('keyup', function(e) {
+			$(rupiah).keyup(function(e) {
 					// tambahkan 'Rp.' pada saat form di ketik
 					// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
 					$('#rupiahOutput').html(formatRupiah(this.value, 'Rp. '));
@@ -91,10 +92,9 @@ $(document).ready(function () {
 	// update modal
 	$('.editBtn').click(function(e) {
 
-		let id = $(this).val();
-		let input_id = $('#id_barang').val(id);
-		let url = $('#formUpdate').attr('action')
-		$('#formUpdate').attr('action', '/dashboard/dataBarang/produk/' + id);
+		let slug = $(this).val();
+		let oldImage = $(this).data('image');
+		$('#formUpdate').attr('action',  '/dashboard/dataBarang/produk/' + slug);
 
 		let link = $('#formUpdate').attr('action')
 
@@ -103,14 +103,68 @@ $(document).ready(function () {
 			url: link,
 			success: function (success) {
 				console.log(success);
-				$('#formUpdate #jenis_brg').val(success.barang.jenis_brg);
+				$('#formUpdate #kategori').val(success.barang.kategori).change();
 				$('#formUpdate #merk_brg').val(success.barang.merk_brg);
 				$('#formUpdate #stok_brg').val(success.barang.stok_brg);
 				$('#formUpdate #harga_brg').val(success.barang.harga_brg);
+				$('#oldImage').val(success.barang.image);
+
+				if($('.img-preview').attr('src', oldImage + '/' + success.barang.image)) {
+					$('.img-preview').addClass('block mb-6 w-40');
+
+					if($('.img-preview').attr('src') == '/storage/null') {
+						$('.img-preview').attr('src', '');
+						$('.img-preview').removeClass('block mb-6 w-40');
+					}
+				}
 			}
 		});
 
 	});
+
+	$('#tambahBarangBtn').click(function() {
+		$('.img-preview').attr('src', '');
+		$('.img-preview').removeClass('block mb-6 w-40')
+	});
+
+	$('.editBtn2').click(function(e) {
+
+		let slug = $(this).val();
+		// let url = $('#formUpdate').attr('action')
+		$('#formUpdate').attr('action', '/dashboard/kategori/produk/' + slug);
+
+		let link = $('#formUpdate').attr('action')
+
+		$.ajax({
+			type: "GET",
+			url: link,
+			success: function (success) {
+				console.log(success);
+				$('#formUpdate #nama_kategori').val(success.kategori.name);
+			}
+		});
+
+	});
+
+	function previewImage(input) {
+		if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+						$('.img-preview').attr('src', e.target.result);
+						$('.img-preview').hide();
+						$('.img-preview').fadeIn(650);
+						$('.img-preview').addClass('block mb-6 w-40');
+				}
+				reader.readAsDataURL(input.files[0]);
+		}
+}
+
+let image = document.querySelectorAll('#image')
+
+$(image).change(function() {
+		previewImage(this);
+});
+  
 
 
 

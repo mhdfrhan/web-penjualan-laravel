@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\DashboardBarangController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GuestController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\DashboardController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DashboardBarangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,14 +20,16 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [GuestController::class, 'index'])->middleware(['auth', 'verified']);
+Route::get('/', [HomeController::class, 'index'])->middleware(['auth', 'verified']);
 
 
 Auth::routes(['verify' => true]);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified']);
-Route::get('/dashboard/dataBarang', [DashboardBarangController::class, 'index'])->middleware(['auth', 'verified']);
-Route::resource('/dashboard/dataBarang/produk', DashboardBarangController::class)->middleware(['auth', 'verified']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth']);
+Route::get('/dashboard/dataBarang', [DashboardBarangController::class, 'index'])->middleware(['auth']);
+Route::resource('/dashboard/dataBarang/produk', DashboardBarangController::class)->middleware(['auth']);
+Route::get('/dashboard/kategori', [CategoryController::class, 'index'])->middleware(['auth']);
+Route::resource('/dashboard/kategori/produk', CategoryController::class)->middleware(['auth', 'verified']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);

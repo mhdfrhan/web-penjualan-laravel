@@ -24,7 +24,7 @@
                 </svg>
             </button>
 
-            <a href="#" class="flex items-center gap-x-3">
+            <a href="/" class="flex items-center gap-x-3">
                 <img src="/img/logo-2.png" class="w-7" alt="">
                 <span class="self-center whitespace-nowrap text-xl font-bold text-gray-800">GadgetCom</span>
             </a>

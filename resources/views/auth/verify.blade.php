@@ -3,9 +3,8 @@
 <section class="py-20 px-4">
     <div class="max-w-md mx-auto py-14 px-8 shadow rounded-xl">
         @if (session('resent'))
-            <div id="alert-3"
-                class="flex p-4 mb-6 text-green-800 rounded-lg bg-green-50"
-                role="alert"><span class="sr-only">Info</span>
+            <div id="alert-3" class="flex p-4 mb-6 text-green-800 rounded-lg bg-green-50" role="alert"><span
+                    class="sr-only">Info</span>
                 <div class="text-[13px] font-medium">Tautan baru telah kami kirimkan ke email Anda.</div><button
                     type="button"
                     class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8"
@@ -18,10 +17,25 @@
                     </svg></button>
             </div>
         @endif
+
+        @php
+            function hideEmailAddress($email)
+            {
+                if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    [$first, $last] = explode('@', $email);
+                    $first = str_replace(substr($first, '3'), str_repeat('*', strlen($first) - 2), $first);
+                    $last = explode('.', $last);
+                    $last_domain = str_replace(substr($last['0'], '1'), str_repeat('*', strlen($last['0']) - 1), $last['0']);
+                    $hideEmailAddress = $first . '@' . $last_domain . '.' . $last['1'];
+                    return $hideEmailAddress;
+                }
+            }
+        @endphp
+
         <div class="text-center">
             <h1 class="text-xl md:text-2xl font-medium">Verifikasi akun Anda</h1>
-            <p class="text-[13px] text-gray-400 mt-2">Kami telah mengirimkan tautan aktivasi akun ke alamat email yang
-                Anda berikan</p>
+            <p class="text-[13px] text-gray-400 mt-2">Kami telah mengirimkan tautan aktivasi akun email <span
+                    id="email">{{ hideEmailAddress(Auth::user()->email) }}</span></p>
         </div>
         <div class="flex justify-center my-6">
             <div
@@ -32,9 +46,11 @@
         </div>
         <div>
             <form action="{{ route('verification.resend') }}" method="POST" class="inline">
-							@csrf
+                @csrf
                 <div class="flex justify-center">
-                    <button type="submit" class="text-violet-600 text-[13px] font-medium hover:border-b hover:border-b-violet-600">Tidak menerima email?
+                    <button type="submit"
+                        class="text-violet-600 text-[13px] font-medium hover:border-b hover:border-b-violet-600">Tidak
+                        menerima email?
                         Kirim lagi</button>
                 </div>
             </form>
@@ -44,7 +60,7 @@
 
 
 @section('script')
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="/js/lottie-player.js"></script>
 @endsection
 
 @include('layouts.footer')

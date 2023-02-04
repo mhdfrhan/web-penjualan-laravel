@@ -3,6 +3,7 @@
 @include('dashboard.partials.navbar')
 @include('dashboard.partials.sidebar')
 
+
 <main class="lg:ml-64 duration-500 relative" id="main-content">
     <div class="px-4 pt-6 w-full">
         <nav class="flex mb-4" aria-label="Breadcrumb">
@@ -32,6 +33,9 @@
                 </li>
             </ol>
         </nav>
+				<div class="mb-4">
+					<h3 class="text-gray-800 text-2xl font-semibold">{{ $title }}</h3>
+			</div>
         @yield('container')
     </div>
 </main>

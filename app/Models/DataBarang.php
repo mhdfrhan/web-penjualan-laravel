@@ -14,9 +14,10 @@ class DataBarang extends Model
 	public function scopeFilter($query, array $filters)
 	{
 
-		$query->when($filters['search'] ?? false, function($query, $search) {
-			return $query->where('jenis_brg', 'like', '%' . $search . '%')
-								->orWhere('merk_brg', 'like', '%' . $search . '%');
+		$query->when($filters['search'] ?? false, function ($query, $search) {
+			return $query->where('kategori', 'like', '%' . $search . '%')
+				->orWhere('merk_brg', 'like', '%' . $search . '%');
 		});
 	}
+
 }

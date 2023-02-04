@@ -16,7 +16,7 @@ body {
 }
 
 .sideMenu span {
-    @apply ml-2 text-sm font-medium text-gray-800;
+    @apply ml-2 text-sm font-medium text-gray-500;
 }
 
 #sidebar.sidebarClose {
@@ -45,11 +45,11 @@ body {
     @apply lg:ml-24 !important;
 }
 
-#sidebar li a.active {
+#sidebar li a.active, #sidebar li button.active {
     @apply bg-gray-200;
 }
 
-#sidebar li a.active .icon {
+#sidebar li a.active .icon, #sidebar li button.active .icon{
     @apply !bg-violet-500 !text-white;
 }
 
@@ -96,14 +96,18 @@ body {
     @apply px-6 py-4;
 }
 
-.editBtn {
-    @apply bg-gray-200 inline-flex items-center gap-x-1 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-300 duration-300;
+.editBtn, .editBtn2 {
+    @apply bg-gray-200 inline-flex items-center gap-x-1 px-2 py-1.5 rounded-lg text-gray-700 hover:bg-gray-300 duration-300;
 }
 
-#formHapus .hapusBtn {
-    @apply bg-red-600 inline-flex items-center gap-x-1 px-3 py-2 rounded-lg text-white hover:bg-red-700 duration-300;
+.hapusBtn {
+    @apply bg-red-600 inline-flex items-center gap-x-1 px-2 py-1.5 rounded-lg text-white hover:bg-red-700 duration-300;
 }
 
 input[type='file'] {
 	@apply dark:file:bg-violet-100 file:bg-violet-50 file:text-violet-700 file:font-normal w-full rounded-lg border border-gray-300 focus:border-violet-600 outline-none !important
+}
+
+.collapseActive {
+	@apply bg-gray-200
 }
