@@ -15,12 +15,15 @@ return new class extends Migration
     {
         Schema::create('data_penjualans', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('user_id');
+            $table->foreignId('barang_id');
             $table->date('tanggal');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('barang_id');
-            $table->foreign('barang_id')->references('id')->on('data_barangs');
+            $table->bigInteger('jumlah');
+            $table->text('pesan')->nullable();
+            $table->string('pengiriman');
+						$table->string('pembayaran');
+						$table->string('status');
+						$table->string('total');
         });
     }
 

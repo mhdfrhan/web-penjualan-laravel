@@ -22,7 +22,7 @@ class DashboardBarangController extends Controller
 		$this->authorize('admin');
 		return view('dashboard.dataBarang', [
 			'title' => 'Data Barang',
-			'barang' => DataBarang::filter(request(['search']))->paginate(15)->onEachSide(1)->withQueryString(),
+			'barang' => DataBarang::latest()->filter(request(['search']))->paginate(15)->onEachSide(1)->withQueryString(),
 			'kategories' => Category::latest()->get()
 		]);
 	}
@@ -45,16 +45,17 @@ class DashboardBarangController extends Controller
 	 */
 	public function store(Request $request)
 	{
+
 		$validated = $request->validate(
 			[
-				'kategori' => 'required',
+				'category_id' => 'required',
 				'merk_brg' => 'required|max:255',
 				'stok_brg' => 'required|integer',
 				'image' => 'image|file|max:1024',
 				'harga_brg' => 'required'
 			],
 			[
-				'kategori.required' => 'Harus diisi',
+				'category_id.required' => 'Harus diisi',
 				'merk_brg.required' => 'Harus diisi',
 				'stok_brg.required' => 'Harus diisi',
 				'harga_brg.required' => 'Harus diisi',
@@ -70,13 +71,13 @@ class DashboardBarangController extends Controller
 		// cek jika ada gambar yg diupload
 		if ($request->file('image')) {
 			$validated['image'] = $request->file('image')->store('gambar-barang');
-		}
+		} 
 
 
 		if (DataBarang::create($validated)) {
-			return redirect('/dashboard/dataBarang')->with('success', 'Data barang berhasil ditambahkan!');
+			return redirect()->back()->with('success', 'Data barang berhasil ditambahkan!');
 		} else {
-			return redirect('/dashboard/dataBarang')->with('error', 'Data barang gagal ditambahkan!');
+			return redirect()->back()->with('error', 'Data barang gagal ditambahkan!');
 		}
 	}
 
@@ -119,14 +120,14 @@ class DashboardBarangController extends Controller
 	{
 		$validated = $request->validate(
 			[
-				'kategori' => 'required',
+				'category_id' => 'required',
 				'merk_brg' => 'required|max:255',
 				'stok_brg' => 'required|integer',
 				'image' => 'image|file|max:1024',
 				'harga_brg' => 'required|integer'
 			],
 			[
-				'kategori.required' => 'Harus diisi',
+				'category_id.required' => 'Harus diisi',
 				'merk_brg.required' => 'Harus diisi',
 				'stok_brg.required' => 'Harus diisi',
 				'harga_brg.required' => 'Harus diisi',
@@ -148,9 +149,9 @@ class DashboardBarangController extends Controller
 		}
 
 		if (DataBarang::where('id', $id)->update($validated)) {
-			return redirect('/dashboard/dataBarang')->with('success', 'Data barang berhasil diupdate!');
+			return redirect()->back()->with('success', 'Data barang berhasil diupdate!');
 		} else {
-			return redirect('/dashboard/dataBarang')->with('error', 'Data barang gagal diupdate!');
+			return redirect()->back()->with('error', 'Data barang gagal diupdate!');
 		}
 	}
 
@@ -170,9 +171,9 @@ class DashboardBarangController extends Controller
 		}
 
 		if (DataBarang::destroy($id)) {
-			return redirect('/dashboard/dataBarang')->with('success', 'Data ' . $barang->merk_brg . ' berhasil dihapus!');
+			return redirect()->back()->with('success', 'Data ' . $barang->merk_brg . ' berhasil dihapus!');
 		} else {
-			return redirect('/dashboard/dataBarang')->with('error', 'Data ' . $barang->merk_brg . ' gagal dihapus!');
+			return redirect()->back()->with('error', 'Data ' . $barang->merk_brg . ' gagal dihapus!');
 		}
 	}
 }

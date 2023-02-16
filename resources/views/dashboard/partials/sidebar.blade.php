@@ -13,20 +13,6 @@
                     </a>
                 </div>
                 <ul class="pt-1 pb-2">
-                    <li class="mb-4 lg:hidden">
-                        <div class="relative block w-full">
-                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </div>
-                            <input id="searchInputMobile" type="text"
-                                class="block w-full rounded-full border border-gray-300 bg-transparent p-2.5 pl-10 text-sm text-gray-900 focus:border-pink-500 focus:ring-2 focus:ring-violet-200 "
-                                placeholder="Search" />
-                        </div>
-                    </li>
                     <li class="sideMenu">
                         <a href="/dashboard" class="{{ Request::is('dashboard') ? 'active' : '' }}">
                             <div class="icon">
@@ -42,8 +28,8 @@
 										<li id="accordion-collapse" data-accordion="collapse">
 											<div class="pt-2" id="barang-heading">
 												<button type="button" id="barang-button"
-													class="flex w-full items-center rounded-full px-4 py-2.5 transition-all duration-200 hover:bg-gray-200 {{ Request::is('dashboard/*') ? 'active' : '' }}"
-													data-accordion-target="#barang-collapse" aria-expanded="{{ Request::is('dashboard/*') ? 'true' : 'false' }}"
+													class="flex w-full items-center rounded-full px-4 py-2.5 transition-all duration-200 hover:bg-gray-200 {{ Request::is('dashboard/dataBarang/*') ? 'active' : '' }}"
+													data-accordion-target="#barang-collapse" aria-expanded="{{ Request::is('dashboard/dataBarang/*') ? 'true' : 'false' }}"
 													aria-controls="barang-collapse">
 													<div
 														class="mr-1 grid place-items-center rounded-full bg-white p-2.5 text-center shadow-lg shadow-gray-300 icon">
@@ -66,19 +52,19 @@
 												<div id="barang-collapse" class="hidden" aria-labelledby="barang-heading">
 													<ul class="pt-3 space-y-2">
 														<li>
-															<a href="/dashboard/kategori"
-																class="block w-full rounded-full py-2.5 px-4 pl-12 text-sm font-medium text-gray-500 {{ Request::is('dashboard/kategori') ? 'collapseActive' : '' }}">Kategori</a>
+															<a href="/dashboard/dataBarang/kategori"
+																class="block w-full rounded-full py-2.5 px-4 pl-12 text-sm font-medium text-gray-500 {{ Request::is('dashboard/dataBarang/kategori') ? 'collapseActive' : '' }}">Kategori</a>
 														</li>
 														<li>
-															<a href="/dashboard/dataBarang"
-																class="block w-full rounded-full py-2.5 px-4 pl-12 text-sm font-medium text-gray-500 {{ Request::is('dashboard/dataBarang') ? 'collapseActive' : '' }}">Barang / produk</a>
+															<a href="/dashboard/dataBarang/barang"
+																class="block w-full rounded-full py-2.5 px-4 pl-12 text-sm font-medium text-gray-500 {{ Request::is('dashboard/dataBarang/barang') ? 'collapseActive' : '' }}">Barang / produk</a>
 														</li>
 													</ul>
 												</div>
 											</div>
 										</li>
                     <li class="pt-2 sideMenu">
-                        <a href="#" class="{{ Request::is('dataPenjualan') ? 'active' : '' }}">
+                        <a href="/dashboard/dataPenjualan" class="{{ Request::is('dashboard/dataPenjualan') ? 'active' : '' }}">
                             <div class="icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
                                     fill="currentColor">
@@ -90,20 +76,42 @@
                                 Penjualan</span>
                         </a>
                     </li>
+                    <li id="accordion-collapse" data-accordion="collapse">
+											<div class="pt-2" id="users-heading">
+												<button type="button" id="users-button"
+													class="flex w-full items-center rounded-full px-4 py-2.5 transition-all duration-200 hover:bg-gray-200 {{ Request::is('dashboard/users/*') ? 'active' : '' }}"
+													data-accordion-target="#users-collapse" aria-expanded="{{ Request::is('dashboard/users/*') ? 'true' : 'false' }}"
+													aria-controls="users-collapse">
+													<div
+														class="mr-1 grid place-items-center rounded-full bg-white p-2.5 text-center shadow-lg shadow-gray-300 icon">
+														<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+															<path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+														</svg>														
+													</div>
+													<span class="ml-2 text-sm font-medium text-gray-500">Data users</span>
+													<svg data-accordion-icon class="ml-auto h-6 w-6 shrink-0 text-navy-700 nav-icon"
+														fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+														<path fill-rule="evenodd"
+															d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+															clip-rule="evenodd"></path>
+													</svg>
+												</button>
+												<div id="users-collapse" class="hidden" aria-labelledby="users-heading">
+													<ul class="pt-3 space-y-2">
+														<li>
+															<a href="/dashboard/users/admin"
+																class="block w-full rounded-full py-2.5 px-4 pl-12 text-sm font-medium text-gray-500 {{ Request::is('dashboard/users/admin') ? 'collapseActive' : '' }}">Admin</a>
+														</li>
+														<li>
+															<a href="/dashboard/users/pembeli"
+																class="block w-full rounded-full py-2.5 px-4 pl-12 text-sm font-medium text-gray-500 {{ Request::is('dashboard/users/pembeli') ? 'collapseActive' : '' }}">Pembeli</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</li>
                     <li class="pt-2 sideMenu">
-                        <a href="#" class="{{ Request::is('users') ? 'active' : '' }}">
-                            <div class="icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path
-                                        d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-                                </svg>
-                            </div>
-                            <span>Users</span>
-                        </a>
-                    </li>
-                    <li class="pt-2 sideMenu">
-                        <a href="#" class="{{ Request::is('transaksi') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard.transaksi') }}" class="{{ Request::is('dashboard/transaksi') ? 'active' : '' }}">
                             <div class="icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -113,6 +121,16 @@
                             </div>
                             <span>Data
                                 Transaksi</span>
+                        </a>
+                    </li>
+                    <li class="pt-2 sideMenu">
+                        <a href="{{ route('dashboard.feedback') }}" class="{{ Request::is('dashboard/feedback') ? 'active' : '' }}">
+                            <div class="icon">
+															<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+																<path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
+															</svg>															
+                            </div>
+                            <span>Feedback</span>
                         </a>
                     </li>
                 </ul>

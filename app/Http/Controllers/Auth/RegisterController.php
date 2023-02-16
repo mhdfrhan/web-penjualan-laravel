@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
@@ -42,6 +43,7 @@ class RegisterController extends Controller
 
         // enkripsi password
         $validateData['password'] = Hash::make($validateData['password']);
+				$validateData['slug'] = Str::slug($validateData['username'] . '-' . Str::random(20), '-');
 
         $user = User::create($validateData);
 				event(new Registered($user));

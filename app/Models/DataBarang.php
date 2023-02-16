@@ -14,10 +14,14 @@ class DataBarang extends Model
 	public function scopeFilter($query, array $filters)
 	{
 
-		$query->when($filters['search'] ?? false, function ($query, $search) {
-			return $query->where('kategori', 'like', '%' . $search . '%')
-				->orWhere('merk_brg', 'like', '%' . $search . '%');
-		});
+			$query->when($filters['search'] ?? false, function ($query, $search) {
+				return $query->where('merk_brg', 'like', '%' . $search . '%');
+			});
 	}
+
+	public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
 }

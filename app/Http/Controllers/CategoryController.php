@@ -17,6 +17,7 @@ class CategoryController extends Controller
 	 */
 	public function index()
 	{
+		$this->authorize('admin');
 		return view('dashboard.kategori', [
 			'title' => 'Kategori',
 			'categories' => Category::latest()->paginate(5)
@@ -56,9 +57,9 @@ class CategoryController extends Controller
 		$validated['slug'] = Str::slug($request->name . '-' . Str::random(10), '-');
 
 		if (Category::create($validated)) {
-			return redirect('/dashboard/kategori')->with('success', 'Data barang berhasil ditambahkan!');
+			return redirect()->back()->with('success', 'Data barang berhasil ditambahkan!');
 		} else {
-			return redirect('/dashboard/kategori')->with('error', 'Data barang gagal ditambahkan!');
+			return redirect()->back()->with('error', 'Data barang gagal ditambahkan!');
 		}
 	}
 
@@ -112,9 +113,9 @@ class CategoryController extends Controller
 		);
 
 		if (Category::where('id', $id)->update($validated)) {
-			return redirect('/dashboard/kategori')->with('editHapusSuccess', 'Data barang berhasil diupdate!');
+			return redirect()->back()->with('editHapusSuccess', 'Data barang berhasil diupdate!');
 		} else {
-			return redirect('/dashboard/kategori')->with('editHapusError', 'Data barang gagal diupdate!');
+			return redirect()->back()->with('editHapusError', 'Data barang gagal diupdate!');
 		}
 	}
 
@@ -129,9 +130,9 @@ class CategoryController extends Controller
 
 		$kategori = $category->find($id);
 		if (Category::destroy($id)) {
-			return redirect('/dashboard/kategori')->with('editHapusSuccess', 'Kategori ' . $kategori->name . ' berhasil dihapus!');
+			return redirect('/dashboard/dataBarang/kategori')->with('editHapusSuccess', 'Kategori ' . $kategori->name . ' berhasil dihapus!');
 		} else {
-			return redirect('/dashboard/kategori')->with('editHapusError', 'Kategori ' . $kategori->name . ' gagal dihapus!');
+			return redirect('/dashboard/dataBarang/kategori')->with('editHapusError', 'Kategori ' . $kategori->name . ' gagal dihapus!');
 		}
 	}
 }

@@ -1,4 +1,9 @@
+$(window).on('load', function() {
+	$('#loader').fadeOut(500)
+});
+
 $(document).ready(function () {
+	
 	let navbarButton = $("#toggleSidebar");
 	let navbarButtonMobile = $("#toggleSidebarMobile");
 	let sidebar = $("#sidebar");
@@ -47,6 +52,8 @@ $(document).ready(function () {
 					return true;
 			}
 	});
+
+
 
 	// alert hapus
 	$('.hapusBtn').click(function (e) {
@@ -103,18 +110,18 @@ $(document).ready(function () {
 			url: link,
 			success: function (success) {
 				console.log(success);
-				$('#formUpdate #kategori').val(success.barang.kategori).change();
+				$('#formUpdate #category_id').val(success.barang.category_id).change();
 				$('#formUpdate #merk_brg').val(success.barang.merk_brg);
 				$('#formUpdate #stok_brg').val(success.barang.stok_brg);
 				$('#formUpdate #harga_brg').val(success.barang.harga_brg);
 				$('#oldImage').val(success.barang.image);
 
 				if($('.img-preview').attr('src', oldImage + '/' + success.barang.image)) {
-					$('.img-preview').addClass('block mb-6 w-40');
+					$('.img-preview').addClass('block mb-6');
 
 					if($('.img-preview').attr('src') == '/storage/null') {
 						$('.img-preview').attr('src', '');
-						$('.img-preview').removeClass('block mb-6 w-40');
+						$('.img-preview').removeClass('block mb-6');
 					}
 				}
 			}
@@ -159,13 +166,19 @@ $(document).ready(function () {
 		}
 }
 
-let image = document.querySelectorAll('#image')
+	let image = document.querySelectorAll('#image')
 
-$(image).change(function() {
-		previewImage(this);
-});
-  
+	$(image).change(function() {
+			previewImage(this);
+	});
 
+	$('.searchIcon').click(function() {
+		$('#searchForm').addClass('active');
+	});
+
+	$('.closeForm').click(function() {
+		$('#searchForm').removeClass('active');
+	});
 
 
 });

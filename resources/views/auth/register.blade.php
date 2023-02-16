@@ -1,6 +1,6 @@
 @include('layouts.head')
 
-<section>
+<section class="pb-16 lg:pb-0">
     <div class="flex flex-wrap items-center">
         <div class="w-full lg:w-1/2 order-2 lg:order-1 mt-10 lg:mt-0 container mx-auto px-4">
             <div class="lg:max-w-sm mx-auto">

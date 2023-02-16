@@ -26,24 +26,22 @@
 
             <a href="/" class="flex items-center gap-x-3">
                 <img src="/img/logo-2.png" class="w-7" alt="">
-                <span class="self-center whitespace-nowrap text-xl font-bold text-gray-800">GadgetCom</span>
+                <span class="self-center whitespace-nowrap text-xl font-bold text-gray-800 hidden lg:block">GadgetCom</span>
             </a>
         </div>
 
         <div class="flex items-center gap-x-6">
-            <button class="lg:hidden" type="button" id="searchNavBtnMobile">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-            </button>
-
-            <button type="button"
-                class="mr-3 flex rounded-full bg-gray-900 text-sm focus:ring-4 focus:ring-gray-300 md:mr-0"
+            <button type="button" class="mr-3 flex rounded-fulltext-sm focus:ring-4 focus:ring-gray-300 md:mr-0 items-center rounded-lg"
                 id="user-menu-button" aria-expanded="false" type="button" data-dropdown-toggle="user-dropdown">
                 <span class="sr-only">Open user menu</span>
-                <img class="h-8 w-8 rounded-full object-cover object-top" src="/img/farhan.png" alt="user photo" />
+								<span class="text-sm mr-2 font-medium text-gray-500">{{ Auth::user()->name }}</span>
+                @if (Auth::user()->image)
+                    <img src="{{ asset('storage/' . Auth::user()->image) }}" class="h-8 w-8 rounded-full object-cover object-top"
+                        alt="gambar {{ Auth::user()->name }}">
+                @else
+                    <img src="/img/no-photo.png" class="h-8 w-8 rounded-full object-cover object-top"
+                        alt="gambar {{ Auth::user()->name }}">
+                @endif
             </button>
             <!-- Dropdown menu -->
             <div class="z-50 my-4 hidden list-none divide-y divide-gray-100 rounded bg-gray-50 text-base shadow"
@@ -54,16 +52,17 @@
                 </div>
                 <ul class="py-1" aria-labelledby="dropdown">
                     <li>
-                        <a href="/" class="block py-2 px-4 text-sm text-gray-800 hover:bg-gray-100 ">Dashboard</a>
+                        <a href="/dashboard"
+                            class="block py-2 px-4 text-sm text-gray-800 {{ Request::is('dashboard') ? 'bg-violet-600 text-white' : 'hover:bg-gray-200' }} ">Dashboard</a>
                     </li>
                     <li>
-                        <a href="#" class="block py-2 px-4 text-sm text-gray-800 hover:bg-gray-100 ">Settings</a>
+                        <a href="/dashboard/profile" class="block py-2 px-4 text-sm text-gray-800 {{ Request::is('dashboard/profile') ? 'bg-violet-600 text-white' : 'hover:bg-gray-200' }}">Settings</a>
                     </li>
                     <li>
                         <form action="/logout" method="POST">
                             @csrf
                             <button type="submit"
-                                class="block w-full py-2 px-4 text-sm text-gray-800 hover:bg-gray-100 text-left">Logout</button>
+                                class="block w-full py-2 px-4 text-sm text-gray-800 text-left">Logout</button>
                         </form>
                     </li>
                 </ul>

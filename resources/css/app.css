@@ -4,7 +4,15 @@
 @tailwind utilities;
 
 body {
-    @apply font-poppins bg-white selection:bg-violet-500 selection:text-white;
+    @apply font-poppins bg-white selection:bg-violet-500 selection:text-white text-gray-800;
+}
+
+li#accordion-collapse:hover .icon svg, li.sideMenu:hover .icon svg{
+	transform: rotateY(180deg);
+}
+
+li .icon svg {
+	@apply duration-500
 }
 
 .sideMenu a {
@@ -72,6 +80,10 @@ body {
     @apply block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-violet-600;
 }
 
+.form-input-border {
+	@apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5
+}
+
 .table {
     @apply w-full text-sm text-left text-gray-500;
 }
@@ -97,11 +109,15 @@ body {
 }
 
 .editBtn, .editBtn2 {
-    @apply bg-gray-200 inline-flex items-center gap-x-1 px-2 py-1.5 rounded-lg text-gray-700 hover:bg-gray-300 duration-300;
+    @apply bg-gray-200 py-2 px-3 flex items-center justify-center rounded-lg text-gray-700 hover:bg-gray-300 duration-300;
+}
+
+.viewBtn {
+	@apply bg-violet-600 py-2 px-3 flex items-center justify-center rounded-lg text-white hover:bg-violet-700 duration-300;
 }
 
 .hapusBtn {
-    @apply bg-red-600 inline-flex items-center gap-x-1 px-2 py-1.5 rounded-lg text-white hover:bg-red-700 duration-300;
+    @apply bg-red-600 py-2 px-3 flex items-center justify-center rounded-lg text-white hover:bg-red-700 duration-300;
 }
 
 input[type='file'] {
@@ -110,4 +126,28 @@ input[type='file'] {
 
 .collapseActive {
 	@apply bg-gray-200
+}
+
+.navbarLink {
+	@apply block py-2.5 pl-3 pr-4 font-medium text-gray-700 rounded-lg hover:bg-gray-100 lg:hover:bg-transparent lg:hover:text-violet-700 lg:p-0 text-base
+}
+
+.navbarLink.active {
+	@apply lg:text-violet-600 lg:bg-transparent bg-violet-600 text-white
+}
+
+.icon span {
+	@apply absolute text-[10px] -top-2 -right-2.5 bg-violet-600 text-white w-4 h-4 flex justify-center items-center rounded-full
+}
+
+.icon:hover svg {
+	transform: rotateY(180deg);
+}
+
+#searchForm.active {
+	@apply !flex visible opacity-100 duration-500
+}
+
+#hapusModal {
+	@apply bg-black bg-opacity-60
 }

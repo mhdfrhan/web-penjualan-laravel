@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('data_barangs', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('kategori');
+						$table->foreignId('category_id');
             $table->string('merk_brg');
             $table->string('slug');
 						$table->string('image')->nullable();

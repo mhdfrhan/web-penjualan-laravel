@@ -1,36 +1,15 @@
 @include('layouts.head')
 
-<section class="bg-white">
+<section class="bg-white pb-16 lg:pb-0">
     <div class="flex flex-wrap items-center">
         <div class="w-full lg:w-1/2 order-2 lg:order-1 mt-10 lg:mt-0">
             <div class="max-w-sm mx-auto bg-white">
                 <h1 class="text-2xl font-semibold text-gray-800 mb-2 textce">Hi, Selamat Datang kembali 👋</h1>
                 <p class="text-sm text-gray-400">Silahkan masukkan username dan password terlebih dahulu</p>
                 <div class="mt-8">
-                    @if (session()->has('success'))
-                        <div id="alert-3"
-                            class="flex p-4 mb-4 text-green-800 rounded-lg bg-green-50"
-                            role="alert">
-                            <span class="sr-only">Info</span>
-                            <div class="text-sm font-medium">
-                                {{ session('success') }}
-                            </div>
-                            <button type="button"
-                                class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8"
-                                data-dismiss-target="#alert-3" aria-label="Close">
-                                <span class="sr-only">Close</span>
-                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    @endif
+                    @include('dashboard.partials.message')
                     @if (session()->has('loginError'))
-                        <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50"
-                            role="alert">
+                        <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
                             <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor"
                                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd"
@@ -68,14 +47,16 @@
                                 <input id="remember" name="remember" type="checkbox" value=""
                                     class="w-4 h-4 text-violet-600 bg-gray-100 border-gray-300 rounded focus:ring-violet-500 focus:ring-2">
                                 <label for="remember"
-                                    class="ml-2 text-sm text-gray-500 hover:text-gray-800 cursor-pointer select-none">Ingat saya</label>
+                                    class="ml-2 text-sm text-gray-500 hover:text-gray-800 cursor-pointer select-none">Ingat
+                                    saya</label>
                             </div>
                             <div>
-															@if (Route::has('password.request'))
-                                <a href="{{ route('password.request') }}" class="text-sm text-red-600 font-medium hover:underline">Lupa
-                                    password?
-                                </a>
-																@endif
+                                @if (Route::has('password.request'))
+                                    <a href="{{ route('password.request') }}"
+                                        class="text-sm text-red-600 font-medium hover:underline">Lupa
+                                        password?
+                                    </a>
+                                @endif
                             </div>
                         </div>
                         <button
