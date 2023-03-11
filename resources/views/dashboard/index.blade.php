@@ -33,7 +33,7 @@
 
     </div>
 
-    <div class="grid lg:grid-cols-3 2xl:grid-cols-4 gap-4 mt-10">
+    <div class="grid lg:grid-cols-3 2xl:grid-cols-4 gap-4 mt-10 pb-10">
         <div class="bg-white shadow-lg shadow-gray-200 rounded-2xl p-4">
             <div class="flex items-center">
                 <div class="p-3 bg-violet-500 dark:via-violet-600 rounded-full shadow-md shadow-gray-200 text-white">

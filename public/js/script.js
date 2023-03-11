@@ -4,26 +4,43 @@ $(window).on('load', function () {
 
 $(document).ready(function () {
 
-// Fungsi untuk menampilkan waktu saat ini dalam format "jam:menit:detik"
-function displayTime() {
-	// Dapatkan waktu saat ini
-	var currentTime = new Date();
-	// Dapatkan jam, menit, dan detik dari waktu saat ini
-	var hours = currentTime.getHours();
-	var minutes = currentTime.getMinutes();
-	var seconds = currentTime.getSeconds();
-	// Tambahkan angka 0 di depan jam, menit, dan detik jika nilainya kurang dari 10
-	hours = (hours < 10 ? "0" : "") + hours;
-	minutes = (minutes < 10 ? "0" : "") + minutes;
-	seconds = (seconds < 10 ? "0" : "") + seconds;
-	// Gabungkan jam, menit, dan detik menjadi satu string
-	var timeString = hours + ":" + minutes + ":" + seconds;
-	// Tampilkan waktu saat ini pada elemen dengan id "clock"
-	$("#clock").html(timeString);
-}
+	// Fungsi untuk menampilkan waktu saat ini dalam format "jam:menit:detik"
+	function displayTime() {
+		// Dapatkan waktu saat ini
+		var currentTime = new Date();
+		// Dapatkan jam, menit, dan detik dari waktu saat ini
+		var hours = currentTime.getHours();
+		var minutes = currentTime.getMinutes();
+		var seconds = currentTime.getSeconds();
+		// Tambahkan angka 0 di depan jam, menit, dan detik jika nilainya kurang dari 10
+		hours = (hours < 10 ? "0" : "") + hours;
+		minutes = (minutes < 10 ? "0" : "") + minutes;
+		seconds = (seconds < 10 ? "0" : "") + seconds;
+		// Gabungkan jam, menit, dan detik menjadi satu string
+		var timeString = hours + ":" + minutes + ":" + seconds;
+		// Tampilkan waktu saat ini pada elemen dengan id "clock"
+		$("#clock").html(timeString);
+	}
 
-// Jalankan fungsi displayTime() setiap satu detik
-setInterval(displayTime, 1000);
+	$(window).on('online offline', function () {
+		if (!navigator.onLine) {
+			$('#offline-modal').removeClass('hidden').addClass('flex');
+			$('body').addClass('overflow-hidden');
+		} else {
+			$('#offline-modal').removeClass('flex').addClass('hidden');
+			$('body').removeClass('overflow-hidden');
+			setTimeout(function() {
+				if ($('#offline-modal').hasClass('flex')) {
+						$('#offline-modal').removeClass('flex').addClass('hidden');
+				}
+		}, 500); // waktu dalam milidetik
+		}
+	});
+
+
+
+	// Jalankan fungsi displayTime() setiap satu detik
+	setInterval(displayTime, 1000);
 
 
 	setTimeout(function () {
@@ -231,8 +248,8 @@ setInterval(displayTime, 1000);
 				$('#formUpdate #harga_brg').val(success.barang.harga_brg);
 				$('#oldImage').val(success.barang.image);
 
-				if ($('.img-preview').attr('src', oldImage + '/' + success.barang.image)) {
-					$('.img-preview').addClass('block mb-6');
+				if ($('.img-preview').attr('src', oldImage)) {
+					$('.img-preview').addClass('block mb-6 w-40 rounded-lg');
 
 					if ($('.img-preview').attr('src') == '/storage/null') {
 						$('.img-preview').attr('src', '');

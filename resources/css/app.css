@@ -149,7 +149,7 @@ input[type='file'] {
 }
 
 #hapusModal {
-	@apply bg-black bg-opacity-60
+	@apply bg-black bg-opacity-60 w-full
 }
 
 .swiper-pagination-bullet {

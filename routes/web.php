@@ -56,6 +56,7 @@ Route::middleware(['auth', 'verified', 'session.validity'])->group(function () {
 		Route::get('/dashboard/users/admin', 'UserController@admin');
 		Route::get('/dashboard/users/pembeli', 'UserController@pembeli');
 		Route::get('/dashboard/transaksi', 'TransaksiController@index')->name('dashboard.transaksi');
+		Route::delete('/dashboard/transaksi', 'TransaksiController@hapus')->name('hapus.transaksi');
 		Route::post('/dashboard/users/update', 'UserController@update')->name('user.update');
 		Route::get('/users/foto/hapus/{slug}', 'UserController@hapusFoto')->name('foto.hapus');
 		Route::get('/dashboard/feedback', 'FeedbackController@dashboard')->name('dashboard.feedback');

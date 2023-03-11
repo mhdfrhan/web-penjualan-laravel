@@ -4,8 +4,8 @@
     <section class="pb-16">
         <div class="flex flex-wrap items-center justify-between mb-8">
             <div class="w-full lg:w-1/3 mb-4 lg:mb-0">
-                <form action="/dashboard/dataBarang/barang" method="GET" class="flex items-center w-full"><label for="search"
-                        class="sr-only">Search</label>
+                <form action="/dashboard/dataBarang/barang" method="GET" class="flex items-center w-full"><label
+                        for="search" class="sr-only">Search</label>
                     <div class="relative w-full">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"><svg
                                 aria-hidden="true" class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20"
@@ -33,8 +33,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
                     </svg>Tambah barang</button></div>
             <div id="tambahModal" tabindex="-1" aria-hidden="true"
-                class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full bg-black bg-opacity-50">
-                <div class="relative w-full h-full max-w-xl md:h-auto mx-auto">
+                class="fixed top-0 left-0 right-0 z-50  w-full p-4 overflow-x-hidden overflow-y-auto inset-0 h-full bg-black bg-opacity-50 hidden items-center">
+                <div class="relative w-full h-full flex flex-col justify-center max-w-xl md:h-auto mx-auto animate__animated animate__zoomIn animate__faster">
                     <div class="relative bg-white rounded-lg shadow">
                         <div class="flex items-start justify-between p-4 border-b rounded-t ">
                             <h3 class="text-xl font-semibold text-gray-900">Tambah barang</h3><button type="button"
@@ -48,7 +48,7 @@
                         </div>
                         <div class="p-6 space-y-6">
                             <form action="/dashboard/dataBarang/produk" method="POST" enctype="multipart/form-data">
-															@csrf
+                                @csrf
                                 <div>
                                     <select id="category_id" name="category_id"
                                         class="bg-gray-50 border border-gray-300 text-gray-500 text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5">
@@ -154,10 +154,9 @@
                             <th scope="row">{{ $barang->firstItem() + $i }}</th>
                             <td scope="row">
                                 @if ($b->image)
-                                    <a class="cursor-pointer" data-fancybox
-                                        data-src="{{ asset('img/' . $b->image) }}">
-                                        <img src="{{ asset('img/' . $b->image) }}"
-                                            class="inline w-24 rounded-lg h-auto" alt="gambar {{ $b->kategori }}">
+                                    <a class="cursor-pointer" data-fancybox data-src="{{ asset('img/' . $b->image) }}">
+                                        <img src="{{ asset('img/' . $b->image) }}" class="inline w-24 rounded-lg h-auto"
+                                            alt="gambar {{ $b->kategori }}">
                                     </a>
                                 @else
                                     <a class="cursor-pointer" data-fancybox data-src="/img/no-photo.png">
@@ -206,10 +205,11 @@
         @else<div class="p-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 text-center" role="alert"><span
                     class="font-medium">Tidak ada data barang!</span></div>
         @endif
+
         {{-- update modal --}}
         <div id="updateModal" tabindex="-1" aria-hidden="true"
-            class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full bg-black bg-opacity-50">
-            <div class="relative w-full h-full max-w-xl md:h-auto mx-auto">
+            class="fixed z-[999] hidden items-center overflow-x-hidden overflow-y-auto inset-0 h-screen bg-black bg-opacity-60 px-4">
+            <div class="relative h-full w-full flex flex-col justify-center max-w-xl animate__animated animate__zoomIn animate__faster">
                 <div class="relative bg-white rounded-lg shadow">
                     <div class="flex items-start justify-between p-4 border-b rounded-t ">
                         <h3 class="text-xl font-semibold text-gray-900 ">Update barang</h3><button type="button"
@@ -300,33 +300,54 @@
                 </div>
             </div>
         </div>
+
         {{-- hapus modal --}}
-        <div id="hapusModal" tabindex="-1"
-            class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-            <div class="relative w-full h-full max-w-md md:h-auto mx-auto">
-                <div class="relative bg-white rounded-lg shadow"><button type="button"
-                        class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                        data-modal-hide="hapusModal"><svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
-                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                clip-rule="evenodd"></path>
-                        </svg><span class="sr-only">Close modal</span></button>
-                    <div class="p-6 text-center"><svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <h3 class="mb-5 text-lg font-normal text-gray-500">Yakin ingin
-                            menghapus <span class="namaBrg font-semibold"></span>?</h3>
-                        <form action="" method="POST" id="formHapusModal">@method('delete') @csrf<button
-                                type="submit"
-                                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
-                                id="modalHapusBtn">Ya, Saya yakin</button>
-                            <button data-modal-hide="hapusModal" type="button"
-                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Tidak,
-                                batal</button>
-                        </form>
+
+        <div id="hapusModal" tabindex="-1" aria-hidden="true"
+            class="fixed z-[999] hidden items-center justify-center w-full overflow-x-hidden overflow-y-auto inset-0 h-screen bg-black bg-opacity-60 px-4">
+            <div class="relative h-full w-full flex flex-col justify-center max-w-md animate__animated animate__zoomIn animate__faster">
+                <div class="relative bg-white rounded-lg shadow">
+                    <div class="p-4 sm:p-6 text-center">
+                        <button type="button"
+                            class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                            data-modal-hide="hapusModal"><svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+
+                                <path fill-rule="evenodd"
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+
+                            </svg><span class="sr-only">Close modal</span></button>
+
+                        <div class="p-4 sm:p-6 text-center"><svg aria-hidden="true"
+                                class="mx-auto mb-4 text-gray-400 w-14 h-14" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+
+                            </svg>
+
+                            <h3 class="mb-5 text-lg font-normal text-gray-500">Yakin ingin
+
+                                menghapus <span class="namaBrg font-semibold"></span>?</h3>
+
+                            <form action="" method="POST" id="formHapusModal">@method('delete')
+
+                                <div class="flex justify-center items-center flex-wrap gap-2">
+                                    @csrf<button type="submit"
+                                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+                                        id="modalHapusBtn">Ya, Saya yakin</button>
+
+                                    <button data-modal-hide="hapusModal" type="button"
+                                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Tidak,
+
+                                        batal</button>
+                                </div>
+
+                            </form>
+
+                        </div>
                     </div>
                 </div>
             </div>
