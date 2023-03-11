@@ -6,7 +6,7 @@ Untuk menggunakan website GadgetCom, cukup kunjungi https://gadgetcom.rf.gd/ pad
 
 _______________________________________________________________________
 
-Perlu diingat website ini masih demo atau uji coba saja untuk tugas sekolah
+Website ini masih demo atau uji coba saja untuk tugas sekolah
 _______________________________________________________________________
 
 ## Kontribusi
