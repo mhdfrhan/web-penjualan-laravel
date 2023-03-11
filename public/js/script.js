@@ -4,6 +4,28 @@ $(window).on('load', function () {
 
 $(document).ready(function () {
 
+// Fungsi untuk menampilkan waktu saat ini dalam format "jam:menit:detik"
+function displayTime() {
+	// Dapatkan waktu saat ini
+	var currentTime = new Date();
+	// Dapatkan jam, menit, dan detik dari waktu saat ini
+	var hours = currentTime.getHours();
+	var minutes = currentTime.getMinutes();
+	var seconds = currentTime.getSeconds();
+	// Tambahkan angka 0 di depan jam, menit, dan detik jika nilainya kurang dari 10
+	hours = (hours < 10 ? "0" : "") + hours;
+	minutes = (minutes < 10 ? "0" : "") + minutes;
+	seconds = (seconds < 10 ? "0" : "") + seconds;
+	// Gabungkan jam, menit, dan detik menjadi satu string
+	var timeString = hours + ":" + minutes + ":" + seconds;
+	// Tampilkan waktu saat ini pada elemen dengan id "clock"
+	$("#clock").html(timeString);
+}
+
+// Jalankan fungsi displayTime() setiap satu detik
+setInterval(displayTime, 1000);
+
+
 	setTimeout(function () {
 		$(".alert").fadeOut("slow");
 	}, 5000); // 5000 milidetik = 5 detik
