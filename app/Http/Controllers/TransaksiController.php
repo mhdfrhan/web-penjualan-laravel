@@ -11,9 +11,12 @@ class TransaksiController extends Controller
 	{
 		$this->authorize('admin');
 		$transaksi = DB::table('data_penjualans')
-			->where('status', 'selesai')
-			->join('data_barangs', 'data_barangs.id', '=', 'data_penjualans.barang_id')
-			->paginate(15);
+    ->select('data_penjualans.*', 'data_barangs.image as barang_image', 'users.image as user_image', 'users.*', 'data_barangs.*')
+    ->where('status', 'selesai')
+    ->join('data_barangs', 'data_barangs.id', '=', 'data_penjualans.barang_id')
+    ->join('users', 'users.id', '=', 'data_penjualans.user_id')
+    ->paginate(15);
+
 
 		return view('dashboard.transaksi', [
 			'title' => 'Transaksi',

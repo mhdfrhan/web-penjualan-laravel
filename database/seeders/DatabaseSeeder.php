@@ -32,27 +32,27 @@ class DatabaseSeeder extends Seeder
 			
 		]);
 
-		Category::create([
-			'name' => 'Laptop',
-			'slug' => 'laptop-0893q4'
-		]);
-		Category::create([
-			'name' => 'Handphone',
-			'slug' => 'hp-197457'
-		]);
-		Category::create([
-			'name' => 'Televisi',
-			'slug' => 'televisi-0q2765'
-		]);
-		Category::create([
-			'name' => 'Mouse',
-			'slug' => 'mouse-vn94y84'
-		]);
-		Category::create([
-			'name' => 'Keyboard',
-			'slug' => 'keyboard-fh9834'
-		]);
+		// Category::create([
+		// 	'name' => 'Laptop',
+		// 	'slug' => 'laptop-0893q4'
+		// ]);
+		// Category::create([
+		// 	'name' => 'Handphone',
+		// 	'slug' => 'hp-197457'
+		// ]);
+		// Category::create([
+		// 	'name' => 'Televisi',
+		// 	'slug' => 'televisi-0q2765'
+		// ]);
+		// Category::create([
+		// 	'name' => 'Mouse',
+		// 	'slug' => 'mouse-vn94y84'
+		// ]);
+		// Category::create([
+		// 	'name' => 'Keyboard',
+		// 	'slug' => 'keyboard-fh9834'
+		// ]);
 
-		DataBarang::factory(40)->create();
+		// DataBarang::factory(40)->create();
 	}
 }

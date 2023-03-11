@@ -9,6 +9,7 @@ use App\Models\DataBarang;
 use App\Models\DetailBarang;
 use Illuminate\Http\Request;
 use App\Models\DataPenjualan;
+use App\Models\Feedback;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -29,17 +30,41 @@ class HomeController extends Controller
 			$favoritCount = 0;
 		}
 
+		$newProducts = DataBarang::latest()->limit(6)->get();
+		$category = Category::latest()->get();
+		$feedback = Feedback::select('feedback.*', 'users.name', 'users.email', 'users.image')
+			->join('users', 'users.id', '=', 'feedback.user_id')
+			->where('feedback.posted', true) // filter posted yang bernilai true
+			->orderBy('feedback.posted', 'desc')
+			->get();
+
+		if (Auth::check()) {
+			$user = Auth::user();
+			if (!$user->hasVerifiedEmail()) {
+				return view('auth.verify');
+			}
+		}
+
 		return view('guest.index', [
 			'title' => 'Home',
-			'categories' => Category::latest()->get(),
+			'categories' => $category,
 			'cartCount' => $cartCount,
-			'newProducts' => DataBarang::latest()->limit(6)->get()
+			'newProducts' => $newProducts,
+			'banner' => DB::table('banner')->get(),
+			'testimonials' => $feedback
 		]);
 	}
 
 	public function profile()
 	{
 		$user = User::where('id', Auth::user()->id)->first();
+
+		if (Auth::check()) {
+			$user = Auth::user();
+			if (!$user->hasVerifiedEmail()) {
+				return view('auth.verify');
+			}
+		}
 
 		return view('guest.profile', [
 			'title' => 'Profile',
@@ -50,9 +75,16 @@ class HomeController extends Controller
 	public function showProducts()
 	{
 
+		if (Auth::check()) {
+			$user = Auth::user();
+			if (!$user->hasVerifiedEmail()) {
+				return view('auth.verify');
+			}
+		}
+
 		return view('guest.products', [
 			'title' => 'All Products',
-			'barang' => DataBarang::where('stok_brg', '>', 0)->latest()->filter(request(['search']))->paginate(10)->onEachSide(1)->withQueryString()
+			'barang' => DataBarang::where('stok_brg', '>', 0)->filter(request(['search']))->paginate(10)->onEachSide(1)->withQueryString()
 		]);
 	}
 
@@ -78,18 +110,28 @@ class HomeController extends Controller
 
 	public function tambahFavorit(Request $request)
 	{
-		$ambil = DB::table('data_barangs')->where('id', $request->id_produk)->first();
+		$produk = DB::table('data_barangs')->where('id', $request->id_produk)->first();
+
+		$existingFavorit = Favorit::where('barang_id', $request->id_produk)
+			->where('user_id', Auth::user()->id)
+			->exists();
+
+		if ($existingFavorit) {
+			return redirect()->back()->with('error', $produk->merk_brg . ' sudah ada di favorit!');
+		}
+
 		DB::table('favorits')->insert([
 			'barang_id' => $request->id_produk,
 			'user_id' => Auth::user()->id,
-			'category_id' => $ambil->category_id
+			'category_id' => $produk->category_id
 		]);
 
 		$favoritCount = Favorit::where('user_id', Auth::user()->id)->count();
 		Session::put('favorit', $favoritCount);
 
-		return redirect()->back()->with('success', $ambil->merk_brg . ' berhasil ditambahkan ke favorit!');
+		return redirect()->back()->with('success', $produk->merk_brg . ' berhasil ditambahkan ke favorit!');
 	}
+
 
 	public function hapusFavorit(Request $request)
 	{
@@ -101,5 +143,4 @@ class HomeController extends Controller
 			return redirect()->back()->with('error', 'Gagal hapus dari favorit!');
 		};
 	}
-
 }

@@ -7,6 +7,7 @@ use App\Models\DataBarang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class DashboardBarangController extends Controller
@@ -22,7 +23,7 @@ class DashboardBarangController extends Controller
 		$this->authorize('admin');
 		return view('dashboard.dataBarang', [
 			'title' => 'Data Barang',
-			'barang' => DataBarang::latest()->filter(request(['search']))->paginate(15)->onEachSide(1)->withQueryString(),
+			'barang' => DataBarang::latest()->filter(request(['search']))->paginate(10)->onEachSide(1)->withQueryString(),
 			'kategories' => Category::latest()->get()
 		]);
 	}
@@ -69,9 +70,12 @@ class DashboardBarangController extends Controller
 		$validated['slug'] = Str::slug($request->merk_brg . '-' . Str::random(20), '-');
 
 		// cek jika ada gambar yg diupload
-		if ($request->file('image')) {
-			$validated['image'] = $request->file('image')->store('gambar-barang');
-		} 
+		if ($request->hasFile('image')) {
+			$image = $request->file('image');
+			$validated['image'] = Str::random(10) . '.' . $image->getClientOriginalExtension();
+			$path = public_path('/img');
+			$image->move($path, $validated['image']);
+		}
 
 
 		if (DataBarang::create($validated)) {
@@ -143,9 +147,14 @@ class DashboardBarangController extends Controller
 		if ($request->hasFile('image')) {
 			// hapus gambar yg lama
 			if ($request->oldImage) {
-				Storage::delete($request->oldImage);
+				$oldPath = public_path('img/' . $request->oldImage);
+				if (File::exists($oldPath)) {
+					File::delete($oldPath);
+				}
 			}
-			$validated['image'] = $request->file('image')->store('gambar-barang');
+			$validated['image'] =  Str::random(10) . '.' . $request->file('image')->getClientOriginalExtension();
+			$path = public_path('/img');
+			$request->file('image')->move($path, $validated['image']);
 		}
 
 		if (DataBarang::where('id', $id)->update($validated)) {
@@ -167,7 +176,10 @@ class DashboardBarangController extends Controller
 
 		// hapus gambar yg lama
 		if ($barang->image) {
-			Storage::delete($barang->image);
+			$oldPath = public_path('img/' . $barang->image);
+			if (File::exists($oldPath)) {
+				File::delete($oldPath);
+			}
 		}
 
 		if (DataBarang::destroy($id)) {

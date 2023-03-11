@@ -45,7 +45,7 @@
                 </div>
                 <div class="flex-shrink-0 ml-3">
                     <span class="text-2xl font-bold text-gray-800 capitalize">Rp. {{ number_format($total) }} </span>
-                    <h3 class="text-sm font-normal text-gray-400 capitalize">pendapatan</h3>
+                    <h3 class="text-sm font-normal text-gray-400 capitalize">pendapatan/bulan</h3>
                 </div>
             </div>
         </div>

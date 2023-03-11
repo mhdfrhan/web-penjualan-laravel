@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardBarangController;
 use App\Http\Controllers\GuestCategoryController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,33 +25,48 @@ use App\Http\Controllers\GuestCategoryController;
 
 Auth::routes(['verify' => true]);
 
-Route::get('/', 'HomeController@index');
-Route::get('/products', 'HomeController@showProducts');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/products', 'HomeController@showProducts')->name('products');
 Route::get('/categories', 'GuestCategoryController@index');
 Route::get('/categories/{category:slug}', 'GuestCategoryController@show')->name('kategori.show');
+Route::put('/update/email', 'UserController@updateEmail')->name('update.email')->middleware('auth');
 
-Route::middleware(['auth',])->group(function () {
+Route::get('/clear-cache', function () {
+	$exitCode = Artisan::call('cache:clear');
+	return redirect()->back();
+});
 
-	// dashboard
-	Route::get('/dashboard', 'DashboardController@index');
-	Route::get('/dashboard/profile', 'DashboardController@profile');
-	Route::get('/dashboard/dataBarang/barang', 'DashboardBarangController@index');
-	Route::resource('/dashboard/dataBarang/produk', 'DashboardBarangController');
-	Route::get('/dashboard/dataBarang/kategori', 'CategoryController@index');
-	Route::resource('/dashboard/kategori/produk', 'CategoryController');
-	Route::get('/dashboard/dataPenjualan', 'DataPenjualanController@index');
-	Route::get('/dataPenjualan/detail/{detail:slug}', 'DataPenjualanController@detail')->name('dashboard.detail');
-	Route::post('/dataPenjualan/edit/{edit:id}', 'DataPenjualanController@edit')->name('dashboard.edit');
-	Route::get('/dashboard/users/admin', 'UserController@admin');
-	Route::get('/dashboard/users/pembeli', 'UserController@pembeli');
-	Route::get('/dashboard/transaksi', 'TransaksiController@index')->name('dashboard.transaksi');
-	Route::post('/dashboard/users/update', 'UserController@update')->name('user.update');
-	Route::get('/dashboard/feedback', 'FeedbackController@dashboard')->name('dashboard.feedback');
-	Route::post('/dashboard/feedback/hapus/{id}', 'FeedbackController@hapus')->name('feedback.hapus');
+
+Route::middleware(['auth', 'verified', 'session.validity'])->group(function () {
+
+	Route::middleware(['admin'])->group(function () {
+		// dashboard
+		Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+		Route::get('/dashboard/frontpage', 'DashboardController@frontpage')->name('frontpage');
+		Route::post('/dashboard/tambah/banner', 'DashboardController@tambah_banner')->name('tambah.banner');
+		Route::delete('/dashboard/tambah/banner/{id}', 'DashboardController@hapus_banner')->name('hapus.banner');
+		Route::get('/dashboard/profile', 'DashboardController@profile')->name('dashboard.profile');
+		Route::get('/dashboard/dataBarang/barang', 'DashboardBarangController@index');
+		Route::resource('/dashboard/dataBarang/produk', 'DashboardBarangController');
+		Route::get('/dashboard/dataBarang/kategori', 'CategoryController@index');
+		Route::resource('/dashboard/kategori/produk', 'CategoryController');
+		Route::get('/dashboard/dataPenjualan', 'DataPenjualanController@index');
+		Route::get('/dataPenjualan/detail/{detail:slug}', 'DataPenjualanController@detail')->name('dashboard.detail');
+		Route::post('/dataPenjualan/edit/{edit:id}', 'DataPenjualanController@edit')->name('dashboard.edit');
+		Route::get('/dashboard/users/admin', 'UserController@admin');
+		Route::get('/dashboard/users/pembeli', 'UserController@pembeli');
+		Route::get('/dashboard/transaksi', 'TransaksiController@index')->name('dashboard.transaksi');
+		Route::post('/dashboard/users/update', 'UserController@update')->name('user.update');
+		Route::get('/users/foto/hapus/{slug}', 'UserController@hapusFoto')->name('foto.hapus');
+		Route::get('/dashboard/feedback', 'FeedbackController@dashboard')->name('dashboard.feedback');
+		Route::post('/dashboard/feedback/hapus/{id}', 'FeedbackController@hapus')->name('feedback.hapus');
+		Route::post('/dashboard/feedback/post/{id}', 'FeedbackController@post')->name('post.feedback');
+		Route::delete('/dashboard/feedback/{id}', 'FeedbackController@hapus_post')->name('hapus.post');
+	});
 
 	// produk order
 	Route::get('/pesanan', 'PesananController@index');
-	Route::get('/cart', 'DetailBarangController@index');
+	Route::get('/cart', 'DetailBarangController@index')->name('keranjang');
 	Route::post('/produk/keranjang/{keranjang:slug}', 'HomeController@tambahKeranjang')->name('tambah.keranjang');
 	Route::get('/favorit', 'DetailBarangController@favorit');
 	Route::post('/produk/favorit/{favorit:slug}', 'HomeController@tambahFavorit')->name('tambah.favorit');

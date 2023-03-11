@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-						$table->string('name');
+						$table->foreignId('user_id');
 						$table->text('feedback');
+						$table->boolean('posted')->default(0);
         });
     }
 

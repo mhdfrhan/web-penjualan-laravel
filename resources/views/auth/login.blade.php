@@ -1,7 +1,7 @@
 @include('layouts.head')
 
 <section class="bg-white pb-16 lg:pb-0">
-    <div class="flex flex-wrap items-center">
+    <div class="flex flex-wrap items-center px-5 lg:px-0">
         <div class="w-full lg:w-1/2 order-2 lg:order-1 mt-10 lg:mt-0">
             <div class="max-w-sm mx-auto bg-white">
                 <h1 class="text-2xl font-semibold text-gray-800 mb-2 textce">Hi, Selamat Datang kembali 👋</h1>

@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Email Verification Controller
     |--------------------------------------------------------------------------
@@ -18,24 +19,39 @@ class VerificationController extends Controller
     |
     */
 
-	use VerifiesEmails;
+    use VerifiesEmails;
 
-	/**
-	 * Where to redirect users after verification.
-	 *
-	 * @var string
-	 */
-	protected $redirectTo = '/';
+    /**
+     * Where to redirect users after verification.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/';
 
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		$this->middleware('auth');
-		$this->middleware('signed')->only('verify');
-		$this->middleware('throttle:6,1')->only('verify', 'resend');
-	}
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('signed')->only('verify');
+        $this->middleware('throttle:6,1')->only('verify', 'resend');
+    }
+
+    /**
+     * Redirect users after verification based on their role
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function redirectTo()
+    {
+        $user = Auth::user();
+        if ($user->role === 'admin') {
+            return '/dashboard';
+        } else {
+            return '/';
+        }
+    }
 }

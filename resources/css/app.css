@@ -136,7 +136,7 @@ input[type='file'] {
 	@apply lg:text-violet-600 lg:bg-transparent bg-violet-600 text-white
 }
 
-.icon span {
+.badge {
 	@apply absolute text-[10px] -top-2 -right-2.5 bg-violet-600 text-white w-4 h-4 flex justify-center items-center rounded-full
 }
 
@@ -150,4 +150,24 @@ input[type='file'] {
 
 #hapusModal {
 	@apply bg-black bg-opacity-60
+}
+
+.swiper-pagination-bullet {
+	@apply w-2.5 h-2.5 duration-500 !important
+}
+
+.swiper-pagination-bullet-active {
+	@apply bg-violet-600 w-6 rounded-lg !important
+}
+
+.swiper-horizontal>.swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+	@apply relative mt-6 !important
+}
+
+.heading {
+	@apply relative inline-block text-center capitalize text-2xl lg:text-3xl font-semibold mb-2 after:absolute after:content-[''] after:h-1 after:bg-violet-600 after:w-14 after:ml-4 after:top-1/2 after:-translate-y-1/2 before:absolute before:content-[''] before:h-1 before:bg-violet-600 before:w-14 before:right-full before:top-1/2 before:-translate-y-1/2 before:mr-4
+}
+
+.menu-mobile {
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.05) 0px 0px 0px 1px;
 }

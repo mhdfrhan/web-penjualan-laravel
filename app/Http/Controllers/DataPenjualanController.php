@@ -37,7 +37,7 @@ class DataPenjualanController extends Controller
 			->join('data_barangs', 'data_barangs.id', '=', 'data_penjualans.barang_id');
 
 		$ambil->update([
-			'status' => $request->status
+			'status' => $request->status,
 		]);
 
 		return redirect()->back()->with('success', 'Berhasil mengubah status produk');

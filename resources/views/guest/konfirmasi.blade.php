@@ -2,8 +2,9 @@
 @section('container')
     <section class="py-16">
         <div class="container mx-auto px-4 lg:px-20">
-            <div class="mb-10">
-                <h1 class="capitalize text-2xl lg:text-3xl font-semibold mb-6">{{ $title }}</h1>
+            <div class="mb-10 overflow-hidden">
+                <h1 class="capitalize text-2xl lg:text-3xl font-semibold mb-6" data-aos="fade-right" data-aos-duration="1000">
+                    {{ $title }}</h1>
             </div>
 
             @empty(Auth::user()->whatsapp || Auth::user()->alamat)
@@ -16,57 +17,60 @@
                     </svg>
                     <span class="sr-only">Info</span>
                     <div>
-                        <span class="font-medium">Silahkan lengkapi data anda terlebih dahulu! <a href="/profile" class="font-semibold hover:underline">lengkapi sekarang</a></span>
+                        <span class="font-medium">Silahkan lengkapi data anda terlebih dahulu! <a href="/profile"
+                                class="font-semibold hover:underline">lengkapi sekarang</a></span>
                     </div>
                 </div>
             @endempty
 
             <form action="{{ route('order.bayar') }}" method="POST" class="inline">
                 @csrf
+								@method('POST')
                 <div class="flex flex-wrap -mx-4">
                     <div class="w-full lg:w-2/3 p-4">
-                        <div class="bg-white rounded-lg shadow-lg shadow-gray-200 p-6">
-                            <h2 class="text-xl mb-8 font-medium">Data penerima</h2>
+                        <div class="bg-white rounded-lg border border-gray-200 p-6 overflow-hidden">
+                            <h2 class="text-xl mb-8 font-medium" data-aos="fade-right" data-aos-duration="1000">Data
+                                penerima</h2>
 
                             {{-- informasi pengirim --}}
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-8">
-                                <div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-5 gap-y-8 overflow-hidden">
+                                <div data-aos="fade-up" data-aos-duration="1000">
                                     <p class="block mb-2 text-sm font-medium text-gray-900">Nama
                                         lengkap</p>
                                     <span>{{ Auth::user()->name }}</span>
                                 </div>
-                                <div>
+                                <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
                                     <p class="block mb-2 text-sm font-medium text-gray-900">Email</p>
                                     <span>{{ Auth::user()->email }}</span>
                                 </div>
-                                <div>
+                                <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                                     <p class="block mb-2 text-sm font-medium text-gray-900">No WhatsApp</p>
                                     <span>{{ Auth::user()->whatsapp }}</span>
                                 </div>
 
-                                <div>
+                                <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
                                     <p class="block mb-2 text-sm font-medium text-gray-900">Alamat</p>
                                     <span>{{ Auth::user()->alamat }}</span>
                                 </div>
 
                             </div>
 
-
-                            <label for="pesan" class="block mb-2 text-sm mt-6 font-medium text-gray-900">Pesan
-                                khusus</label>
-                            <textarea id="pesan" name="pesan" rows="4" autocomplete="off"
-                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-violet-500 focus:border-violet-5000 @error('pesan')
+                            <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">
+                                <label for="pesan" class="block mb-2 text-sm mt-6 font-medium text-gray-900">Pesan
+                                    khusus</label>
+                                <textarea id="pesan" name="pesan" rows="4" autocomplete="off"
+                                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-violet-500 focus:border-violet-5000 @error('pesan')
 																		!border-red-600
 																@enderror"
-                                placeholder="Tulis pesan kamu disini...">{{ old('pesan') }}</textarea>
-                            @error('pesan')
-                                <span class="text-sm text-red-600">{{ $message }}</span>
-                            @enderror
-
+                                    placeholder="Tulis pesan kamu disini...">{{ old('pesan') }}</textarea>
+                                @error('pesan')
+                                    <span class="text-sm text-red-600">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
 
-                        <div class="bg-white rounded-lg shadow-lg shadow-gray-200 p-6">
-                            <h2 class="text-xl mb-8 font-medium">Pengiriman</h2>
+                        <div class="bg-white rounded-lg border border-gray-200 p-6 mt-8 overflow-hidden">
+                            <h2 class="text-xl mb-8 font-medium" data-aos="fade-right" data-aos-duration="1000">Pengiriman</h2>
 
                             @php
                                 $pengiriman = [
@@ -99,12 +103,12 @@
                             @enderror
                             <ul class="grid w-full gap-6 md:grid-cols-2">
                                 @foreach ($pengiriman as $item)
-                                    <li>
+                                    <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="{{ $loop->iteration * 100 }}">
                                         <input type="radio" id="{{ $item['nama'] }}" name="pengiriman"
                                             value="{{ $item['nama'] }}" class="hidden peer"
                                             {{ old('pengiriman') == $item['nama'] ? 'checked' : '' }}>
                                         <label for="{{ $item['nama'] }}"
-                                            class="inline-flex items-center w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-gray-300 peer-checked:bg-gray-100 peer-checked:text-gray-800 hover:text-gray-600 hover:bg-gray-100">
+                                            class="inline-flex items-center w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-violet-300 peer-checked:bg-violet-100 peer-checked:text-gray-800 hover:text-gray-600 hover:bg-gray-100">
                                             <div>
                                                 <img src="/img/{{ $item['gambar'] }}" class="w-20"
                                                     alt="{{ $item['nama'] }}">
@@ -119,8 +123,8 @@
                             </ul>
                         </div>
 
-                        <div class="bg-white rounded-lg shadow-lg shadow-gray-200 p-6">
-                            <h2 class="text-xl mb-8 font-medium">Pembayaran</h2>
+                        <div class="bg-white rounded-lg border border-gray-200 p-6 mt-8 overflow-hidden">
+                            <h2 class="text-xl mb-8 font-medium" data-aos="fade-right" data-aos-duration="1000">Pembayaran</h2>
 
                             @php
                                 $pembayaran = [
@@ -156,12 +160,12 @@
                             @enderror
                             <ul class="grid w-full gap-6 md:grid-cols-3">
                                 @foreach ($pembayaran as $item)
-                                    <li>
+                                    <li data-aos="fade-up" data-aos-duration="1000" data-aos-delay="{{ $loop->iteration * 100 }}">
                                         <input type="radio" id="{{ $item['nama'] }}" name="pembayaran"
                                             value="{{ $item['nama'] }}" class="hidden peer"
                                             {{ old('pembayaran') == $item['nama'] ? 'checked' : '' }}>
                                         <label for="{{ $item['nama'] }}"
-                                            class="inline-flex items-center w-full p-3 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-gray-300 peer-checked:bg-gray-100 peer-checked:text-gray-800 hover:text-gray-600 hover:bg-gray-100">
+                                            class="inline-flex items-center w-full p-3 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer peer-checked:border-violet-300 peer-checked:bg-violet-100 peer-checked:text-gray-800 hover:text-gray-600 hover:bg-gray-100">
                                             <img src="/img/{{ $item['gambar'] }}" class="w-10"
                                                 alt="{{ $item['nama'] }}">
                                             <div class="block ml-5">
@@ -174,7 +178,7 @@
                         </div>
 
                     </div>
-                    <div class="w-full lg:w-1/3 p-4">
+                    <div class="w-full lg:w-1/3 p-4" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
                         <div class="bg-violet-600 rounded-lg shadow-lg shadow-violet-200 p-6 text-white">
                             <h2 class="font-medium text-xl capitalize">Total produk</h2>
                             <div class="mt-6 border-b border-violet-400 mb-6 pb-8">

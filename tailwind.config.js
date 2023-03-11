@@ -1,17 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./resources/**/*.blade.php"
-  ],
+		"./resources/**/*.blade.php"
+	],
   theme: {
     extend: {
-      fontFamily: {
+			fontFamily: {
         poppins : "'Poppins', sans-serif"
       }
-    },
+		},
   },
-  darkMode: 'class',
+	darkMode: 'class',
   plugins: [
-    require('flowbite/plugin')
-  ],
+		require('flowbite/plugin')
+	],
 }

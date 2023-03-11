@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('barang_id');
-            $table->date('tanggal');
+            $table->dateTime('tanggal');
             $table->bigInteger('jumlah');
             $table->text('pesan')->nullable();
             $table->string('pengiriman');

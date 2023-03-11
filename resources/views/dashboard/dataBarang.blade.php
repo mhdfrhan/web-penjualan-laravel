@@ -155,8 +155,8 @@
                             <td scope="row">
                                 @if ($b->image)
                                     <a class="cursor-pointer" data-fancybox
-                                        data-src="{{ asset('storage/' . $b->image) }}">
-                                        <img src="{{ asset('storage/' . $b->image) }}"
+                                        data-src="{{ asset('img/' . $b->image) }}">
+                                        <img src="{{ asset('img/' . $b->image) }}"
                                             class="inline w-24 rounded-lg h-auto" alt="gambar {{ $b->kategori }}">
                                     </a>
                                 @else
@@ -174,7 +174,7 @@
                                 <div class="flex items-center gap-x-3">
                                     <div><button class="editBtn" data-modal-target="updateModal"
                                             data-modal-toggle="updateModal" value="{{ $b->id }}"
-                                            data-image="{{ asset('storage/') }}"
+                                            data-image="{{ asset('img/' . $b->image) }}"
                                             data-url="/dashboard/dataBarang/produk/"><svg
                                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
