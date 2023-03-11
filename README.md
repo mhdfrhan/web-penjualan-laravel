@@ -4,6 +4,11 @@ GadgetCom adalah sebuah website penjualan gadget yang dibuat dengan menggunakan 
 ## Cara Penggunaan
 Untuk menggunakan website GadgetCom, cukup kunjungi https://gadgetcom.rf.gd/ pada browser Anda. Anda dapat menjelajahi berbagai produk gadget yang tersedia dan melakukan pembelian jika Anda berminat.
 
+_______________________________________________________________________
+
+Perlu diingat website ini masih demo atau uji coba saja untuk tugas sekolah
+_______________________________________________________________________
+
 ## Kontribusi
 Anda dapat berkontribusi pada pengembangan website GadgetCom dengan mengirimkan pull request pada repository GitHub ini.
 
