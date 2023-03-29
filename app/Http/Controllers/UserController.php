@@ -200,20 +200,24 @@ class UserController extends Controller
 	{
 		$user = Auth::user();
 
-    $request->validate([
-        'email' => 'required|email|unique:users,email,'.$user->id,
-    ]);
+		$request->validate([
+			'email' => 'required|email|unique:users,email,' . $user->id,
+		], [
+			'email.required' => 'Email harus diisi',
+			'email.email' => 'Format email tidak valid',
+			'email.unique' => 'Email sudah digunakan'
+		]);
 
-    // Verifikasi email baru
-    $user->email = $request->email;
-    $user->email_verified_at = null;
-    $user->sendEmailVerificationNotification();
+		// Verifikasi email baru
+		$user->email = $request->email;
+		$user->email_verified_at = null;
+		$user->sendEmailVerificationNotification();
 
-    // Update email
-    if ($user->save()) {
-        return redirect()->back()->with('success', 'Email berhasil diubah. Verifikasi email baru akan dikirimkan ke alamat email Anda yang baru.');
-    } else {
-        return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui email.');
-    }
+		// Update email
+		if ($user->save()) {
+			return redirect()->back()->with('success', 'Email berhasil diubah. Verifikasi email baru akan dikirimkan ke alamat email Anda yang baru.');
+		} else {
+			return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui email.');
+		}
 	}
 }

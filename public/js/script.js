@@ -29,11 +29,11 @@ $(document).ready(function () {
 		} else {
 			$('#offline-modal').removeClass('flex').addClass('hidden');
 			$('body').removeClass('overflow-hidden');
-			setTimeout(function() {
+			setTimeout(function () {
 				if ($('#offline-modal').hasClass('flex')) {
-						$('#offline-modal').removeClass('flex').addClass('hidden');
+					$('#offline-modal').removeClass('flex').addClass('hidden');
 				}
-		}, 500); // waktu dalam milidetik
+			}, 500); // waktu dalam milidetik
 		}
 	});
 
@@ -72,6 +72,7 @@ $(document).ready(function () {
 				spaceBetween: 30,
 			},
 		},
+		autoplay: true,
 		spaceBetween: 30,
 		speed: 2000
 	});

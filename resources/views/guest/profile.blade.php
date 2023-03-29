@@ -28,7 +28,7 @@
 
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:ring-violet-500 focus:outline-none focus:border-violet-600 peer @error('name') !border-red-600 @enderror"
 
-                                autocomplete="off" placeholder=" " required value="{{ $user->name }}"><label
+                                autocomplete="off" placeholder=" " required value="{{ old('name') ? old('name') : $user->name }}"><label
 
                                 for="name"
 
@@ -54,7 +54,7 @@
 
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:ring-violet-500 focus:outline-none focus:border-violet-600 peer @error('username') !border-red-600 @enderror"
 
-                                autocomplete="off" placeholder=" " required value="{{ $user->username }}"><label
+                                autocomplete="off" placeholder=" " required value="{{ old('username') ? old('username') : $user->username }}"><label
 
                                 for="username"
 
@@ -78,7 +78,7 @@
 
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:ring-violet-500 focus:outline-none focus:border-violet-600 peer @error('email') !border-red-600 @enderror"
 
-                                autocomplete="off" placeholder=" " required value="{{ $user->email }}"><label
+                                autocomplete="off" placeholder=" " required value="{{ old('email') ? old('email') : $user->email }}"><label
 
                                 for="email"
 
@@ -102,7 +102,7 @@
 
                                 class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:ring-violet-500 focus:outline-none focus:border-violet-600 peer @error('whatsapp') !border-red-600 @enderror"
 
-                                autocomplete="off" placeholder=" " required value="{{ $user->whatsapp }}"><label
+                                autocomplete="off" placeholder=" " required value="{{ old('whatsapp') ? old('whatsapp') : $user->whatsapp }}"><label
 
                                 for="whatsapp"
 
@@ -170,7 +170,7 @@
 
                             class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none focus:ring-violet-500 focus:outline-none focus:border-violet-600 peer @error('alamat') !border-red-600 @enderror"
 
-                            autocomplete="off" placeholder=" " required value="{{ old('alamat') }}">{{ old('alamat') ? old('alamat') : $user->alamat }}</textarea>
+                            autocomplete="off" placeholder=" " required value="{{ old('alamat') ? old('alamat') : $user->alamat }}">{{ old('alamat') ? old('alamat') : $user->alamat }}</textarea>
 
                         <label for="alamat"
 

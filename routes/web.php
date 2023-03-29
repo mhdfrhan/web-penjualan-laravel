@@ -57,8 +57,6 @@ Route::middleware(['auth', 'verified', 'session.validity'])->group(function () {
 		Route::get('/dashboard/users/pembeli', 'UserController@pembeli');
 		Route::get('/dashboard/transaksi', 'TransaksiController@index')->name('dashboard.transaksi');
 		Route::delete('/dashboard/transaksi', 'TransaksiController@hapus')->name('hapus.transaksi');
-		Route::post('/dashboard/users/update', 'UserController@update')->name('user.update');
-		Route::get('/users/foto/hapus/{slug}', 'UserController@hapusFoto')->name('foto.hapus');
 		Route::get('/dashboard/feedback', 'FeedbackController@dashboard')->name('dashboard.feedback');
 		Route::post('/dashboard/feedback/hapus/{id}', 'FeedbackController@hapus')->name('feedback.hapus');
 		Route::post('/dashboard/feedback/post/{id}', 'FeedbackController@post')->name('post.feedback');
@@ -66,7 +64,7 @@ Route::middleware(['auth', 'verified', 'session.validity'])->group(function () {
 	});
 
 	// produk order
-	Route::get('/pesanan', 'PesananController@index');
+	Route::get('/pesanan', 'PesananController@index')->name('pesanan');
 	Route::get('/cart', 'DetailBarangController@index')->name('keranjang');
 	Route::post('/produk/keranjang/{keranjang:slug}', 'HomeController@tambahKeranjang')->name('tambah.keranjang');
 	Route::get('/favorit', 'DetailBarangController@favorit');
@@ -88,6 +86,8 @@ Route::middleware(['auth', 'verified', 'session.validity'])->group(function () {
 	Route::post('/profile/hapus/{slug}', 'UserController@hapusAkun')->name('hapus.akun');
 	Route::get('/feedback', 'FeedbackController@index')->name('feedback');
 	Route::post('/feedback/tambah', 'FeedbackController@tambah')->name('feedback.tambah');
+	Route::post('/users/update', 'UserController@update')->name('user.update');
+	Route::get('/users/foto/hapus/{slug}', 'UserController@hapusFoto')->name('foto.hapus');
 });
 
 Route::get('/login', 'Auth\LoginController@index')->name('login')->middleware('guest');

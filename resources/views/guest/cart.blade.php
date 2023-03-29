@@ -6,9 +6,9 @@
 
     <section class="py-16">
 
-        <div class="container mx-auto px-4 lg:px-20">
+        <div class="container mx-auto px-4 lg:px-20 overflow-hidden">
 
-            <div class="mb-10 overflow-hidden">
+            <div class="mb-10">
 
                 <h1 class="capitalize text-2xl lg:text-3xl font-semibold mb-6" data-aos="fade-right" data-aos-duration="1000">{{ $title }}</h1>
 

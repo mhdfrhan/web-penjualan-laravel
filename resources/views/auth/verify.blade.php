@@ -52,7 +52,7 @@
                 </div>
             @endif
 
-						@include('dashboard.partials.message')
+            @include('dashboard.partials.message')
 
 
 
@@ -124,16 +124,20 @@
                             <h3 class="mb-4 text-xl font-medium">Perbarui Email
                             </h3>
                             <form class="space-y-6" action="{{ route('update.email') }}" method="POST">
-															@csrf
-															@method('PUT')
+                                @csrf
+                                @method('PUT')
                                 <div>
                                     <input type="email" name="email" id="email"
-                                        class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5"
-                                        placeholder="example@gmail.com" required>
+                                        class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5 @error('email') !text-red-600 @enderror"
+                                        placeholder="example@gmail.com" value="{{ old('email') }}" required>
+                                    @error('email')
+                                        <span class="text-sm text-red-600">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div>
-                                <button type="submit"
-                                    class="w-full text-white bg-violet-700 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 rounded-lg text-sm px-5 py-2.5 text-center">Perbarui Email</button>
+                                    <button type="submit"
+                                        class="w-full text-white bg-violet-700 hover:bg-violet-800 focus:ring-4 focus:outline-none focus:ring-violet-300 rounded-lg text-sm px-5 py-2.5 text-center">Perbarui
+                                        Email</button>
                             </form>
                         </div>
                     </div>
