@@ -318,3 +318,16 @@
 
 @endsection
 
+foreach ($this->images as $image) {
+			$imageName = 'IMG-' . Str::random(40) . '.' . $image->getClientOriginalExtension();
+			$imagePath = $image->storeAs('img/products/', $imageName, 'public');
+
+			DB::table('product_image')->insert([
+				'products_id' => $productId,
+				'image' => $imageName,
+				'created_at' => now(),
+			]);
+		}
+
+		Session::flash('message', 'Berhasil mempublish produk!');
+		return $this->redirect(route('dashboard.products'), navigate: true);
